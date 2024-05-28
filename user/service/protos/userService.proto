@@ -1,0 +1,29 @@
+//protoc --go_out=./ userService.proto执行这个命令后生成.go文件
+
+//指定的当前proto语法的版本
+syntax="proto3";
+//导入其他.proto文件
+import "userModel.proto";
+//option go_package="path;name";path是生成的.go文件的存放地址，name是生成的go文件的所属的包名
+option go_package="../";
+//package是指定生成的go文件的包名
+package service;
+//消息 传输的对象
+//请求消息
+message UserRequest{
+  string UserName=1;
+  string Password=2;
+  string PasswordConfirm=3;
+}
+//响应消息
+message UserDetailResponse{
+  UserModel UserDetail=1;
+  uint32 Code=2;
+}
+
+//定义服务(注册和登录)
+service ProductService{
+  //rpc是指定方法的调用方式，GetProductStock是方法名，UserRequest是请求参数，UserDetailResponse是返回参数
+  rpc UserRegister(UserRequest) returns (UserDetailResponse);
+  rpc UserLogin(UserRequest) returns (UserDetailResponse);
+}
