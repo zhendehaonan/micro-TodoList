@@ -19,5 +19,4 @@
 
 # Go workspace file
 go.work
-# 不上传到git的文件
 user/go.sum
