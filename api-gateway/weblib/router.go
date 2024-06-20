@@ -21,6 +21,17 @@ func NewRouter(service ...interface{}) *gin.Engine {
 		//用户服务
 		v1.POST("/user/register", handlers.UserRegister)
 		v1.POST("/user/login", handlers.UserLogin)
+
+		//需要登录保护
+		authed := r.Group("/")
+		authed.Use(middleware.JWT())
+		{
+			authed.GET("tasks", handlers.GetTaskList)
+			authed.GET("task/:id", handlers.GetTaskDetail) //id===> task_id
+			authed.POST("task", handlers.CreateTask)
+			authed.PUT("task/:id", handlers.UpdateTask)
+			authed.DELETE("task/:id", handlers.DeleteTask)
+		}
 	}
 	return r
 }
