@@ -16,7 +16,7 @@ var (
 )
 
 func Init() {
-	file, err := ini.Load("./config.ini")
+	file, err := ini.Load("./conf/config.ini")
 	if err != nil {
 		panic(err)
 	}
